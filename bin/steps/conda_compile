@@ -15,3 +15,13 @@ fi
 
 # Clean up the installation environment .
 conda clean -pt --yes > /dev/null
+
+echo "*** Setting up conda.pth."
+if [[ -d "/app/.heroku/python/lib/python2.7/site-packages/" ]]; then
+    echo "/app/.heroku/miniconda/lib/python2.7/site-packages/" > /app/.heroku/python/lib/python2.7/site-packages/conda.pth
+fi
+echo "*** Setting up required aliases."
+PYTHONHOME=/app/.heroku/miniconda
+PATH=/app/.heroku/miniconda/bin:$PATH
+echo "export PYTHONHOME=$PYTHONHOME" >> /app/.bashrc
+echo "export PATH=$PATH" >> /app/.bashrc

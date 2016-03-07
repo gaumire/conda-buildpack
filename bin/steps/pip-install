@@ -1,0 +1,16 @@
+echo "*** Installing pip packages into conda env"
+# if user wants to uninstall some packages first do so
+if [[ -f requirements-uninstall.txt ]]; then
+  pip uninstall -y -r requirements-uninstall.txt
+fi
+
+# change variables in all requirements files depending on wether pypiapp is set for the particular deployment
+
+if [[ -z $PYPIAPP ]]; then
+    sed -i "s/\$APP/$APP/" requirements*
+    cat requirements.local
+else
+    sed -i "s/\$APP/$PYPIAPP/" requirements*
+    cat requirements.local
+fi
+pip install -r requirements.txt --exists-action=w --src=./.heroku/src --allow-all-external

@@ -76,6 +76,9 @@ mkdir -p $(dirname $PROFILE_PATH)
 # Actuall do the conda steps.
 source $BIN_DIR/steps/conda_compile
 
+# Complete the pip steps
+source $BIN_DIR/steps/pip-install
+
 # ### Finalize
 #
 
